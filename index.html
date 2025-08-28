@@ -1,0 +1,162 @@
+<!-- Anime List Section -->
+<div class="min-h-screen p-6 bg-gradient-to-br from-purple-900 via-black to-gray-900 text-white">
+  <div class="max-w-7xl mx-auto px-4"> <!-- Container محدود و padding داخلی -->
+
+    <!-- Section Title -->
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-center mb-8 animate-pulse drop-shadow-xl">
+      🔥 Anime Universe 🔥
+    </h1>
+
+    <!-- Search Bar -->
+    <div class="flex justify-center mb-8">
+      <input type="text" id="animeSearch" placeholder="🔍 Search anime..." 
+        class="w-full max-w-xl p-3 rounded-2xl text-black focus:outline-none focus:ring-4 focus:ring-purple-500 transition" 
+        onkeyup="filterAnime()" />
+    </div>
+
+    <!-- Anime Cards Grid -->
+    <div id="animeGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Cards will be injected by JS -->
+    </div>
+
+    <!-- Plan to Watch -->
+    <h2 class="text-2xl sm:text-3xl font-semibold mt-12 mb-4 border-b border-purple-500 inline-block drop-shadow-lg">
+      📌 Plan to Watch
+    </h2>
+    <ul id="planList" class="space-y-3">
+      <!-- Plan list injected by JS -->
+    </ul>
+
+  </div>
+</div>
+
+
+
+  <!-- Anime Cards -->
+  <div id="animeGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Cards will be injected by JS -->
+  </div>
+
+
+  </h2>
+  <ul id="planList" class="space-y-3">
+    <!-- Plan list injected by JS -->
+  </ul>
+</div>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Anime List Script -->
+<script>
+const animeList = [
+  { title: "Bleach", genre: "Action" },
+  { title: "Cyberpunk", genre: "Fantasy" },
+  { title: "Dandadan", genre: "Action" },
+  { title: "Kimetsu no Yaiba (Demon Slayer)", genre: "Action" },
+  { title: "Kaijuu 8 Gou", genre: "Action" },
+  { title: "My Dress-Up Darling", genre: "Romance" },
+  { title: "Angels of Death", genre: "Horror" },
+  { title: "Hazbin Hotel", genre: "Fantasy" },
+  { title: "Kanojo Okarishimasu (Rent a Girlfriend)", genre: "Romance" },
+  { title: "Mob Psycho 100", genre: "Action" },
+  { title: "Tokyo Revengers", genre: "Action" },
+  { title: "Assassination Classroom", genre: "School" },
+  { title: "Arcane", genre: "Fantasy" },
+  { title: "Solo Leveling", genre: "Action" },
+  { title: "Jujutsu Kaisen", genre: "Action" },
+  { title: "Spy x Family", genre: "Action" },
+  { title: "Hunter x Hunter", genre: "Action" },
+  { title: "Kimi no Na wa (Your Name)", genre: "Romance" },
+  { title: "Bungou Stray Dogs", genre: "Action" },
+  { title: "Howl no Ugoku Shiro (Howl’s Moving Castle)", genre: "Fantasy" },
+  { title: "Darling in the Franxx", genre: "Fantasy" },
+  { title: "Tokyo Ghoul", genre: "Horror" },
+  { title: "One Punch Man", genre: "Action" },
+  { title: "Chainsaw Man", genre: "Action" },
+  { title: "Suzume no Tojimari", genre: "Fantasy" },
+  { title: "Vanitas no Karte", genre: "Horror" },
+  { title: "My Hero Academia", genre: "School" },
+  { title: "One Piece", genre: "Action" },
+  { title: "Naruto", genre: "Action" },
+  { title: "Gake no Ue no Ponyo", genre: "Fantasy" },
+  { title: "Grand Blue", genre: "Comedy" },
+  { title: "Boku no Hero Academia", genre: "School" },
+  { title: "Re:Zero", genre: "Fantasy" },
+  { title: "Ne Zha 1 & 2", genre: "Fantasy" },
+  { title: "Eromanga Sensei", genre: "Romance" },
+  { title: "Takopi", genre: "Comedy" },
+  { title: "Watamote (Tomoko Kuroki)", genre: "Comedy" },
+  { title: "My Neighbor Totoro", genre: "Fantasy" },
+  { title: "Spirited Away", genre: "Fantasy" },
+  { title: "The Stranger by the Beach", genre: "Romance" },
+  { title: "Alya Sometimes Hides Her Feelings in Russian (S1 Done)", genre: "Romance" },
+  { title: "Suzume", genre: "Fantasy" },
+  { title: "Devilman Crybaby", genre: "Horror" },
+];
+
+const planToWatch = [
+  "Nyaight of the Living Cat",
+  "Kanojo Okarishimasu 4th Season",
+  "Death Note (Spoiled)",
+];
+
+const genreColors = {
+  Action: "from-red-600/60 to-red-400/40",
+  Romance: "from-pink-600/60 to-pink-400/40",
+  Horror: "from-gray-900/60 to-black/50",
+  Fantasy: "from-purple-700/60 to-purple-400/40",
+  School: "from-yellow-600/60 to-yellow-400/30",
+  Comedy: "from-green-600/60 to-green-400/30",
+};
+
+// Inject Anime Cards
+function renderAnime() {
+  const grid = document.getElementById('animeGrid');
+  grid.innerHTML = "";
+  animeList.forEach((anime, i) => {
+    const card = document.createElement("div");
+    card.className = `relative p-6 rounded-3xl shadow-lg cursor-pointer bg-gradient-to-br ${genreColors[anime.genre] || "from-white/20 to-white/10"} hover:scale-105 transition transform`;
+    card.innerHTML = `
+      <span class="absolute top-3 left-3 text-sm font-bold text-white/80">#${i+1}</span>
+      <p class="text-lg font-semibold text-white drop-shadow-md">${anime.title}</p>
+      <span class="absolute bottom-3 right-3 text-xs text-white/70 px-2 py-1 rounded-lg bg-black/30">${anime.genre}</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Inject Plan to Watch
+function renderPlan() {
+  const planEl = document.getElementById('planList');
+  planEl.innerHTML = "";
+  planToWatch.forEach((anime, i) => {
+    const li = document.createElement("li");
+    li.className = "bg-purple-800/40 p-4 rounded-2xl shadow-md text-white font-medium hover:scale-105 transition transform";
+    li.innerText = `#${i+1} — ${anime}`;
+    planEl.appendChild(li);
+  });
+}
+
+// Filter function
+function filterAnime() {
+  const search = document.getElementById('animeSearch').value.toLowerCase();
+  const filtered = animeList.filter(a => a.title.toLowerCase().includes(search));
+  const grid = document.getElementById('animeGrid');
+  grid.innerHTML = "";
+  filtered.forEach((anime, i) => {
+    const card = document.createElement("div");
+    card.className = `relative p-6 rounded-3xl shadow-lg cursor-pointer bg-gradient-to-br ${genreColors[anime.genre] || "from-white/20 to-white/10"} hover:scale-105 transition transform`;
+    card.innerHTML = `
+      <span class="absolute top-3 left-3 text-sm font-bold text-white/80">#${i+1}</span>
+      <p class="text-lg font-semibold text-white drop-shadow-md">${anime.title}</p>
+      <span class="absolute bottom-3 right-3 text-xs text-white/70 px-2 py-1 rounded-lg bg-black/30">${anime.genre}</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Initial render
+renderAnime();
+renderPlan();
+</script>
