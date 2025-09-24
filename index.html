@@ -30,19 +30,6 @@
   </div>
 </div>
 
-
-
-  <!-- Anime Cards -->
-  <div id="animeGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- Cards will be injected by JS -->
-  </div>
-
-
-  </h2>
-  <ul id="planList" class="space-y-3">
-    <!-- Plan list injected by JS -->
-  </ul>
-
   <!-- Games List Section -->
   <h2 class="text-2xl sm:text-3xl font-semibold mt-12 mb-4 border-b border-purple-500 inline-block drop-shadow-lg">
     🎮 Games History
@@ -57,6 +44,17 @@
 
 <!-- Anime List Script -->
 <script>
+const gamesList = [
+  { title: "Far Cry 3", status: "Completed" },
+  { title: "Far Cry 4", status: "Played" },
+  { title: "LEGO Batman", status: "Played" },
+  { title: "Minecraft (TLauncher)", status: "Played" },
+  { title: "Deadpool", status: "Dropped" },
+  { title: "Watch Dogs 2", status: "Played" },
+  { title: "Genshin Impact", status: "On/Off" },
+  { title: "Fortnite", status: "Playing" }
+];
+
 const animeList = [
   { title: "Bleach", genre: "Action" },
   { title: "Cyberpunk", genre: "Fantasy" },
