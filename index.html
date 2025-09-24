@@ -42,6 +42,14 @@
   <ul id="planList" class="space-y-3">
     <!-- Plan list injected by JS -->
   </ul>
+
+  <!-- Games List Section -->
+  <h2 class="text-2xl sm:text-3xl font-semibold mt-12 mb-4 border-b border-purple-500 inline-block drop-shadow-lg">
+    🎮 Games History
+  </h2>
+  <div id="gamesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Games cards will be injected by JS -->
+  </div>
 </div>
 
 <!-- Tailwind CDN -->
@@ -154,7 +162,32 @@ function filterAnime() {
   });
 }
 
+const statusColors = {
+  "Completed": "from-green-600/60 to-green-400/40",
+  "Played": "from-blue-600/60 to-blue-400/40",
+  "Dropped": "from-red-600/60 to-red-400/40",
+  "On/Off": "from-yellow-600/60 to-yellow-400/40",
+  "Playing": "from-purple-600/60 to-purple-400/40"
+};
+
+// Inject Games Cards
+function renderGames() {
+  const grid = document.getElementById('gamesGrid');
+  grid.innerHTML = "";
+  gamesList.forEach((game, i) => {
+    const card = document.createElement("div");
+    card.className = `relative p-6 rounded-3xl shadow-lg cursor-pointer bg-gradient-to-br ${statusColors[game.status] || "from-white/20 to-white/10"} hover:scale-105 transition transform`;
+    card.innerHTML = `
+      <span class="absolute top-3 left-3 text-sm font-bold text-white/80">#${i+1}</span>
+      <p class="text-lg font-semibold text-white drop-shadow-md">${game.title}</p>
+      <span class="absolute bottom-3 right-3 text-xs text-white/70 px-2 py-1 rounded-lg bg-black/30">${game.status}</span>
+    `;
+    grid.appendChild(card);
+  });
+}
+
 // Initial render
 renderAnime();
 renderPlan();
+renderGames();
 </script>
